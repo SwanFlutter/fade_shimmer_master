@@ -29,6 +29,11 @@ import 'package:fade_shimmer_master/fade_shimmer_master.dart';
 
 ```
 
+
+![20250502_034501](https://github.com/user-attachments/assets/97143da9-f6d4-49a4-8b47-8f124cb4b6cf)
+
+
+
 ## Usage
 
 ### Basic Shimmer
