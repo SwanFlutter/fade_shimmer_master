@@ -1,4 +1,3 @@
-
 import 'package:fade_shimmer_master/fade_shimmer_master.dart';
 import 'package:flutter/material.dart';
 
@@ -61,14 +60,8 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.gradient),
             label: 'Enhanced',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'List',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grid_view),
-            label: 'Grid',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'List'),
+          BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Grid'),
         ],
       ),
     );
@@ -112,8 +105,9 @@ class _ClassicShimmerPageState extends State<ClassicShimmerPage> {
           final delay = (i * 300);
           return Container(
             decoration: BoxDecoration(
-                color: isDarkMode ? const Color(0xff242424) : Colors.white,
-                borderRadius: BorderRadius.circular(8)),
+              color: isDarkMode ? const Color(0xff242424) : Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
             margin: const EdgeInsets.symmetric(horizontal: 16),
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -123,9 +117,7 @@ class _ClassicShimmerPageState extends State<ClassicShimmerPage> {
                   fadeTheme: isDarkMode ? FadeTheme.dark : FadeTheme.light,
                   millisecondsDelay: delay,
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
+                const SizedBox(width: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -136,9 +128,7 @@ class _ClassicShimmerPageState extends State<ClassicShimmerPage> {
                       millisecondsDelay: delay,
                       fadeTheme: isDarkMode ? FadeTheme.dark : FadeTheme.light,
                     ),
-                    const SizedBox(
-                      height: 6,
-                    ),
+                    const SizedBox(height: 6),
                     FadeShimmerMaster(
                       height: 8,
                       millisecondsDelay: delay,
@@ -147,15 +137,13 @@ class _ClassicShimmerPageState extends State<ClassicShimmerPage> {
                       fadeTheme: isDarkMode ? FadeTheme.dark : FadeTheme.light,
                     ),
                   ],
-                )
+                ),
               ],
             ),
           );
         },
         itemCount: 20,
-        separatorBuilder: (_, __) => const SizedBox(
-          height: 16,
-        ),
+        separatorBuilder: (_, __) => const SizedBox(height: 16),
       ),
     );
   }
@@ -178,9 +166,7 @@ class _EnhancedShimmerPageState extends State<EnhancedShimmerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Enhanced Shimmer'),
-      ),
+      appBar: AppBar(title: const Text('Enhanced Shimmer')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -188,8 +174,10 @@ class _EnhancedShimmerPageState extends State<EnhancedShimmerPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Theme selector
-              const Text('Theme:',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Theme:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               Wrap(
                 spacing: 8,
                 children: [
@@ -213,8 +201,10 @@ class _EnhancedShimmerPageState extends State<EnhancedShimmerPage> {
               // Gradient toggle
               Row(
                 children: [
-                  const Text('Use Gradient:',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  const Text(
+                    'Use Gradient:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   const SizedBox(width: 8),
                   Switch(
                     value: _useGradient,
@@ -228,8 +218,10 @@ class _EnhancedShimmerPageState extends State<EnhancedShimmerPage> {
               ),
 
               // Direction selector
-              const Text('Direction:',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Direction:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               Wrap(
                 spacing: 8,
                 children: [
@@ -249,8 +241,10 @@ class _EnhancedShimmerPageState extends State<EnhancedShimmerPage> {
               ),
 
               // Animation duration slider
-              const Text('Animation Duration:',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Animation Duration:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               Slider(
                 min: 500,
                 max: 3000,
@@ -267,8 +261,10 @@ class _EnhancedShimmerPageState extends State<EnhancedShimmerPage> {
               const SizedBox(height: 24),
 
               // Basic shimmer examples
-              const Text('Basic Shimmer Examples:',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              const Text(
+                'Basic Shimmer Examples:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
               const SizedBox(height: 16),
 
               Row(
@@ -318,16 +314,19 @@ class _EnhancedShimmerPageState extends State<EnhancedShimmerPage> {
               const SizedBox(height: 24),
 
               // Card example
-              const Text('Card Example:',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              const Text(
+                'Card Example:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
               const SizedBox(height: 16),
 
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: _currentTheme == FadeTheme.dark
-                      ? const Color(0xff242424)
-                      : Colors.white,
+                  color:
+                      _currentTheme == FadeTheme.dark
+                          ? const Color(0xff242424)
+                          : Colors.white,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -432,9 +431,7 @@ class _ShimmerListPageState extends State<ShimmerListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Shimmer List'),
-      ),
+      appBar: AppBar(title: const Text('Shimmer List')),
       body: Column(
         children: [
           Padding(
@@ -444,8 +441,10 @@ class _ShimmerListPageState extends State<ShimmerListPage> {
                 // Theme selector
                 Row(
                   children: [
-                    const Text('Theme:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Theme:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(width: 8),
                     DropdownButton<FadeTheme>(
                       value: _currentTheme,
@@ -456,12 +455,13 @@ class _ShimmerListPageState extends State<ShimmerListPage> {
                           });
                         }
                       },
-                      items: FadeTheme.values.map((FadeTheme theme) {
-                        return DropdownMenuItem<FadeTheme>(
-                          value: theme,
-                          child: Text(theme.name),
-                        );
-                      }).toList(),
+                      items:
+                          FadeTheme.values.map((FadeTheme theme) {
+                            return DropdownMenuItem<FadeTheme>(
+                              value: theme,
+                              child: Text(theme.name),
+                            );
+                          }).toList(),
                     ),
                   ],
                 ),
@@ -469,8 +469,10 @@ class _ShimmerListPageState extends State<ShimmerListPage> {
                 // Gradient toggle
                 Row(
                   children: [
-                    const Text('Use Gradient:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Use Gradient:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(width: 8),
                     Switch(
                       value: _useGradient,
@@ -486,8 +488,10 @@ class _ShimmerListPageState extends State<ShimmerListPage> {
                 // Staggered toggle
                 Row(
                   children: [
-                    const Text('Staggered Animation:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Staggered Animation:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(width: 8),
                     Switch(
                       value: _staggered,
@@ -537,9 +541,7 @@ class _ShimmerGridPageState extends State<ShimmerGridPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Shimmer Grid'),
-      ),
+      appBar: AppBar(title: const Text('Shimmer Grid')),
       body: Column(
         children: [
           Padding(
@@ -549,8 +551,10 @@ class _ShimmerGridPageState extends State<ShimmerGridPage> {
                 // Theme selector
                 Row(
                   children: [
-                    const Text('Theme:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Theme:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(width: 8),
                     DropdownButton<FadeTheme>(
                       value: _currentTheme,
@@ -561,12 +565,13 @@ class _ShimmerGridPageState extends State<ShimmerGridPage> {
                           });
                         }
                       },
-                      items: FadeTheme.values.map((FadeTheme theme) {
-                        return DropdownMenuItem<FadeTheme>(
-                          value: theme,
-                          child: Text(theme.name),
-                        );
-                      }).toList(),
+                      items:
+                          FadeTheme.values.map((FadeTheme theme) {
+                            return DropdownMenuItem<FadeTheme>(
+                              value: theme,
+                              child: Text(theme.name),
+                            );
+                          }).toList(),
                     ),
                   ],
                 ),
@@ -574,8 +579,10 @@ class _ShimmerGridPageState extends State<ShimmerGridPage> {
                 // Gradient toggle
                 Row(
                   children: [
-                    const Text('Use Gradient:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Use Gradient:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(width: 8),
                     Switch(
                       value: _useGradient,
@@ -591,8 +598,10 @@ class _ShimmerGridPageState extends State<ShimmerGridPage> {
                 // Staggered toggle
                 Row(
                   children: [
-                    const Text('Staggered Animation:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Staggered Animation:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(width: 8),
                     Switch(
                       value: _staggered,
@@ -608,8 +617,10 @@ class _ShimmerGridPageState extends State<ShimmerGridPage> {
                 // Columns selector
                 Row(
                   children: [
-                    const Text('Columns:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Columns:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(width: 8),
                     Slider(
                       min: 2,

@@ -62,7 +62,8 @@ class FadeShimmerList extends StatelessWidget {
     this.staggered = true,
     this.staggeredDelay = 100,
   }) : assert(
-  (highlightColor != null && baseColor != null) || fadeTheme != null);
+         (highlightColor != null && baseColor != null) || fadeTheme != null,
+       );
 
   @override
   Widget build(BuildContext context) {
@@ -88,4 +89,4 @@ class FadeShimmerList extends StatelessWidget {
       ),
     );
   }
-} 
+}

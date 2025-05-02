@@ -70,7 +70,8 @@ class FadeShimmerMaster extends StatefulWidget {
     this.border,
     this.boxShadow,
   }) : assert(
-  (highlightColor != null && baseColor != null) || fadeTheme != null);
+         (highlightColor != null && baseColor != null) || fadeTheme != null,
+       );
 
   /// Creates a round shimmer widget
   factory FadeShimmerMaster.round({
@@ -84,21 +85,20 @@ class FadeShimmerMaster extends StatefulWidget {
     ShimmerDirection shimmerDirection = ShimmerDirection.leftToRight,
     BoxBorder? border,
     List<BoxShadow>? boxShadow,
-  }) =>
-      FadeShimmerMaster(
-        height: size,
-        width: size,
-        radius: size / 2,
-        baseColor: baseColor,
-        highlightColor: highlightColor,
-        fadeTheme: fadeTheme,
-        millisecondsDelay: millisecondsDelay,
-        animationDuration: animationDuration,
-        useGradient: useGradient,
-        shimmerDirection: shimmerDirection,
-        border: border,
-        boxShadow: boxShadow,
-      );
+  }) => FadeShimmerMaster(
+    height: size,
+    width: size,
+    radius: size / 2,
+    baseColor: baseColor,
+    highlightColor: highlightColor,
+    fadeTheme: fadeTheme,
+    millisecondsDelay: millisecondsDelay,
+    animationDuration: animationDuration,
+    useGradient: useGradient,
+    shimmerDirection: shimmerDirection,
+    border: border,
+    boxShadow: boxShadow,
+  );
 
   /// Creates a rectangular shimmer with custom border radius
   factory FadeShimmerMaster.rectangular({
@@ -114,21 +114,20 @@ class FadeShimmerMaster extends StatefulWidget {
     ShimmerDirection shimmerDirection = ShimmerDirection.leftToRight,
     BoxBorder? border,
     List<BoxShadow>? boxShadow,
-  }) =>
-      FadeShimmerMaster(
-        width: width,
-        height: height,
-        customBorderRadius: borderRadius,
-        baseColor: baseColor,
-        highlightColor: highlightColor,
-        fadeTheme: fadeTheme,
-        millisecondsDelay: millisecondsDelay,
-        animationDuration: animationDuration,
-        useGradient: useGradient,
-        shimmerDirection: shimmerDirection,
-        border: border,
-        boxShadow: boxShadow,
-      );
+  }) => FadeShimmerMaster(
+    width: width,
+    height: height,
+    customBorderRadius: borderRadius,
+    baseColor: baseColor,
+    highlightColor: highlightColor,
+    fadeTheme: fadeTheme,
+    millisecondsDelay: millisecondsDelay,
+    animationDuration: animationDuration,
+    useGradient: useGradient,
+    shimmerDirection: shimmerDirection,
+    border: border,
+    boxShadow: boxShadow,
+  );
 
   /// Creates a list of shimmer items
   static Widget list({
@@ -146,23 +145,22 @@ class FadeShimmerMaster extends StatefulWidget {
     int animationDuration = 1200,
     bool staggered = true,
     int staggeredDelay = 100,
-  }) =>
-      FadeShimmerList(
-        itemCount: itemCount,
-        itemHeight: itemHeight,
-        itemWidth: itemWidth,
-        spacing: spacing,
-        padding: padding,
-        fadeTheme: fadeTheme,
-        highlightColor: highlightColor,
-        baseColor: baseColor,
-        radius: radius,
-        useGradient: useGradient,
-        shimmerDirection: shimmerDirection,
-        animationDuration: animationDuration,
-        staggered: staggered,
-        staggeredDelay: staggeredDelay,
-      );
+  }) => FadeShimmerList(
+    itemCount: itemCount,
+    itemHeight: itemHeight,
+    itemWidth: itemWidth,
+    spacing: spacing,
+    padding: padding,
+    fadeTheme: fadeTheme,
+    highlightColor: highlightColor,
+    baseColor: baseColor,
+    radius: radius,
+    useGradient: useGradient,
+    shimmerDirection: shimmerDirection,
+    animationDuration: animationDuration,
+    staggered: staggered,
+    staggeredDelay: staggeredDelay,
+  );
 
   /// Creates a grid of shimmer items
   static Widget grid({
@@ -182,25 +180,24 @@ class FadeShimmerMaster extends StatefulWidget {
     int animationDuration = 1200,
     bool staggered = true,
     int staggeredDelay = 100,
-  }) =>
-      FadeShimmerGrid(
-        itemCount: itemCount,
-        itemHeight: itemHeight,
-        itemWidth: itemWidth,
-        crossAxisCount: crossAxisCount,
-        crossAxisSpacing: crossAxisSpacing,
-        mainAxisSpacing: mainAxisSpacing,
-        padding: padding,
-        fadeTheme: fadeTheme,
-        highlightColor: highlightColor,
-        baseColor: baseColor,
-        radius: radius,
-        useGradient: useGradient,
-        shimmerDirection: shimmerDirection,
-        animationDuration: animationDuration,
-        staggered: staggered,
-        staggeredDelay: staggeredDelay,
-      );
+  }) => FadeShimmerGrid(
+    itemCount: itemCount,
+    itemHeight: itemHeight,
+    itemWidth: itemWidth,
+    crossAxisCount: crossAxisCount,
+    crossAxisSpacing: crossAxisSpacing,
+    mainAxisSpacing: mainAxisSpacing,
+    padding: padding,
+    fadeTheme: fadeTheme,
+    highlightColor: highlightColor,
+    baseColor: baseColor,
+    radius: radius,
+    useGradient: useGradient,
+    shimmerDirection: shimmerDirection,
+    animationDuration: animationDuration,
+    staggered: staggered,
+    staggeredDelay: staggeredDelay,
+  );
 
   @override
   State<FadeShimmerMaster> createState() => _FadeShimmerMasterState();
@@ -215,8 +212,10 @@ class _FadeShimmerMasterState extends State<FadeShimmerMaster>
 
   // Stream that toggles between true and false every second
   static final isHighLightStream =
-  Stream<bool>.periodic(const Duration(seconds: 1), (x) => x % 2 == 0)
-      .asBroadcastStream();
+      Stream<bool>.periodic(
+        const Duration(seconds: 1),
+        (x) => x % 2 == 0,
+      ).asBroadcastStream();
 
   Color get highLightColor {
     if (widget.fadeTheme != null) {
@@ -307,8 +306,10 @@ class _FadeShimmerMasterState extends State<FadeShimmerMaster>
       duration: Duration(milliseconds: widget.animationDuration),
     );
 
-    _animation = Tween<double>(begin: 0.0, end: 1.0)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     if (widget.useGradient) {
       _controller.repeat(reverse: true);
