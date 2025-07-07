@@ -1,3 +1,4 @@
+import 'package:example/fade_shimmer_basecolor_example.dart';
 import 'package:fade_shimmer_master/fade_shimmer_master.dart';
 import 'package:flutter/material.dart';
 
@@ -135,6 +136,20 @@ class _ClassicShimmerPageState extends State<ClassicShimmerPage> {
                       width: 170,
                       radius: 4,
                       fadeTheme: isDarkMode ? FadeTheme.dark : FadeTheme.light,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => FadeShimmerBaseColorExample(
+                                  isDarkMode: isDarkMode,
+                                ),
+                          ),
+                        );
+                      },
+                      child: const Text('Base Color Example'),
                     ),
                   ],
                 ),

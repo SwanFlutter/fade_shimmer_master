@@ -1,6 +1,6 @@
 name: fade_shimmer_master
 description: "A beautiful and customizable shimmer effect package for Flutter applications."
-version: 0.0.1
+version: 0.0.2
 homepage: "https://github.com/SwanFlutter/fade_shimmer_master"
 
 environment:

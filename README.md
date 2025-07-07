@@ -19,7 +19,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 
-  fade_shimmer_master: ^0.0.1
+  fade_shimmer_master: ^0.0.2
 
 ```
 

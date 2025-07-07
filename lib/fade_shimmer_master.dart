@@ -1,10 +1,9 @@
-library;
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'fade_shimmer_list.dart';
+
 import 'fade_shimmer_grid.dart';
+import 'fade_shimmer_list.dart';
 
 /// Defines the available themes for the shimmer effect
 enum FadeTheme { light, dark, blue, purple, green }
@@ -204,11 +203,13 @@ class FadeShimmerMaster extends StatefulWidget {
 }
 
 class _FadeShimmerMasterState extends State<FadeShimmerMaster>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+    with TickerProviderStateMixin {
+  // Changed from SingleTickerProviderStateMixin
+  AnimationController? _controller;
   late Animation<double> _animation;
   bool isHighLight = true;
   StreamSubscription? _subscription;
+  Timer? _delayTimer;
 
   // Stream that toggles between true and false every second
   static final isHighLightStream =
@@ -218,6 +219,9 @@ class _FadeShimmerMasterState extends State<FadeShimmerMaster>
       ).asBroadcastStream();
 
   Color get highLightColor {
+    if (widget.highlightColor != null) {
+      return widget.highlightColor!;
+    }
     if (widget.fadeTheme != null) {
       switch (widget.fadeTheme) {
         case FadeTheme.light:
@@ -234,10 +238,13 @@ class _FadeShimmerMasterState extends State<FadeShimmerMaster>
           return const Color(0xff3A3E3F);
       }
     }
-    return widget.highlightColor!;
+    throw Exception('No highlightColor or fadeTheme provided');
   }
 
   Color get baseColor {
+    if (widget.baseColor != null) {
+      return widget.baseColor!;
+    }
     if (widget.fadeTheme != null) {
       switch (widget.fadeTheme) {
         case FadeTheme.light:
@@ -254,7 +261,7 @@ class _FadeShimmerMasterState extends State<FadeShimmerMaster>
           return const Color(0xff2A2C2E);
       }
     }
-    return widget.baseColor!;
+    throw Exception('No baseColor or fadeTheme provided');
   }
 
   Alignment get gradientStartAlignment {
@@ -285,9 +292,17 @@ class _FadeShimmerMasterState extends State<FadeShimmerMaster>
 
   @override
   void dispose() {
-    _subscription?.cancel();
-    _controller.dispose();
+    _cleanupResources();
     super.dispose();
+  }
+
+  void _cleanupResources() {
+    _delayTimer?.cancel();
+    _delayTimer = null;
+    _subscription?.cancel();
+    _subscription = null;
+    _controller?.dispose();
+    _controller = null;
   }
 
   void safeSetState() {
@@ -299,28 +314,61 @@ class _FadeShimmerMasterState extends State<FadeShimmerMaster>
   @override
   void initState() {
     super.initState();
+    _setupAnimation();
+  }
 
-    // Setup animation controller
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: widget.animationDuration),
-    );
+  @override
+  void didUpdateWidget(covariant FadeShimmerMaster oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.useGradient != widget.useGradient ||
+        oldWidget.animationDuration != widget.animationDuration ||
+        oldWidget.millisecondsDelay != widget.millisecondsDelay) {
+      _cleanupResources();
+      _setupAnimation();
+    }
+  }
 
-    _animation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  void _setupAnimation() {
+    // Ensure clean state before creating new resources
+    _cleanupResources();
 
     if (widget.useGradient) {
-      _controller.repeat(reverse: true);
+      _controller = AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: widget.animationDuration),
+      );
+
+      _animation = Tween<double>(
+        begin: 0.0,
+        end: 1.0,
+      ).animate(CurvedAnimation(parent: _controller!, curve: Curves.easeInOut));
+
+      if (widget.millisecondsDelay > 0) {
+        _delayTimer = Timer(
+          Duration(milliseconds: widget.millisecondsDelay),
+          () {
+            if (mounted && _controller != null) {
+              _controller!.repeat(reverse: true);
+            }
+          },
+        );
+      } else {
+        _controller!.repeat(reverse: true);
+      }
     } else {
-      // Use the traditional stream-based approach for solid color animation
+      // For non-gradient mode, we don't need AnimationController
       _subscription = isHighLightStream.listen((value) {
-        if (widget.millisecondsDelay != 0) {
-          Future.delayed(Duration(milliseconds: widget.millisecondsDelay), () {
-            isHighLight = value;
-            safeSetState();
-          });
+        if (widget.millisecondsDelay > 0) {
+          _delayTimer?.cancel();
+          _delayTimer = Timer(
+            Duration(milliseconds: widget.millisecondsDelay),
+            () {
+              if (mounted) {
+                isHighLight = value;
+                safeSetState();
+              }
+            },
+          );
         } else {
           isHighLight = value;
           safeSetState();
@@ -334,7 +382,7 @@ class _FadeShimmerMasterState extends State<FadeShimmerMaster>
     final borderRadius =
         widget.customBorderRadius ?? BorderRadius.circular(widget.radius);
 
-    if (widget.useGradient) {
+    if (widget.useGradient && _controller != null) {
       return AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {

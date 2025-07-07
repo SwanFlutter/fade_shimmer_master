@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'fade_shimmer_master.dart';
 
 /// A widget that creates a list of shimmer items, useful for loading states in lists
@@ -18,13 +19,13 @@ class FadeShimmerList extends StatelessWidget {
   /// The padding around the list
   final EdgeInsetsGeometry padding;
 
-  /// The theme for the shimmer items
+  /// The theme for the shimmer items. If [baseColor] or [highlightColor] are provided, they override the theme colors.
   final FadeTheme? fadeTheme;
 
-  /// The highlight color for the shimmer items
+  /// The highlight color for the shimmer items. If provided, overrides the theme's highlight color.
   final Color? highlightColor;
 
-  /// The base color for the shimmer items
+  /// The base color for the shimmer items. If provided, overrides the theme's base color.
   final Color? baseColor;
 
   /// The border radius for the shimmer items
@@ -62,7 +63,8 @@ class FadeShimmerList extends StatelessWidget {
     this.staggered = true,
     this.staggeredDelay = 100,
   }) : assert(
-         (highlightColor != null && baseColor != null) || fadeTheme != null,
+         fadeTheme != null || (highlightColor != null && baseColor != null),
+         'You must provide either fadeTheme or both highlightColor and baseColor.',
        );
 
   @override
